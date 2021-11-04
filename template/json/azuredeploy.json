@@ -1,0 +1,120 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.4.1008.15138",
+      "templateHash": "16171417214444324993"
+    }
+  },
+  "parameters": {
+    "purviewAccountName": {
+      "type": "string"
+    },
+    "purviewResourceGroup": {
+      "type": "string"
+    },
+    "uniqueFileNameSuffix": {
+      "type": "string"
+    }
+  },
+  "functions": [],
+  "variables": {
+    "resourceGroupName": "[resourceGroup().name]",
+    "location": "[resourceGroup().location]",
+    "prefix": "pvdq",
+    "randomString": "[substring(guid(resourceGroup().id), 0, 6)]",
+    "roleDefinitionprefix": "[format('/subscriptions/{0}/providers/Microsoft.Authorization/roleDefinitions', subscription().subscriptionId)]",
+    "role": {
+      "Owner": "[format('{0}/8e3af657-a8ff-443c-a75c-2fe8c4bcb635', variables('roleDefinitionprefix'))]",
+      "Contributor": "[format('{0}/b24988ac-6180-42a0-ab88-20f7382dd24c', variables('roleDefinitionprefix'))]",
+      "Reader": "[format('{0}/acdd72a7-3385-48ef-bd42-f606fba81ae7', variables('roleDefinitionprefix'))]",
+      "UserAccessAdministrator": "[format('{0}/18d7d88d-d35e-4fb5-a5c3-7773c20a72d9', variables('roleDefinitionprefix'))]",
+      "StorageBlobDataOwner": "[format('{0}/b7e6dc6d-f1e8-4753-8033-0f276bb0955b', variables('roleDefinitionprefix'))]",
+      "StorageBlobDataContributor": "[format('{0}/ba92f5b4-2d11-453d-a403-e96b0029c9fe', variables('roleDefinitionprefix'))]",
+      "StorageBlobDataReader": "[format('{0}/2a2b9908-6ea1-4ae2-8e65-a410df84e7d1', variables('roleDefinitionprefix'))]"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+      "apiVersion": "2021-04-01",
+      "name": "[format('{0}/{1}/{2}', format('{0}{1}adls', variables('prefix'), variables('randomString')), 'default', 'data')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', format('{0}{1}adls', variables('prefix'), variables('randomString')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2021-04-01",
+      "name": "[format('{0}{1}adls', variables('prefix'), variables('randomString'))]",
+      "location": "[variables('location')]",
+      "kind": "StorageV2",
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "properties": {
+        "isHnsEnabled": true
+      }
+    },
+    {
+      "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+      "apiVersion": "2018-11-30",
+      "name": "configDeployer",
+      "location": "[variables('location')]"
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2020-08-01-preview",
+      "scope": "[format('Microsoft.Storage/storageAccounts/{0}', format('{0}{1}adls', variables('prefix'), variables('randomString')))]",
+      "name": "[guid(format('01{0}', variables('resourceGroupName')))]",
+      "properties": {
+        "principalId": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('purviewResourceGroup')), 'Microsoft.Purview/accounts', parameters('purviewAccountName')), '2021-07-01', 'full').identity.principalId]",
+        "roleDefinitionId": "[variables('role').StorageBlobDataReader]",
+        "principalType": "ServicePrincipal"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', format('{0}{1}adls', variables('prefix'), variables('randomString')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2020-08-01-preview",
+      "name": "[guid(format('02{0}', variables('resourceGroupName')))]",
+      "properties": {
+        "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'configDeployer')).principalId]",
+        "roleDefinitionId": "[variables('role').Contributor]",
+        "principalType": "ServicePrincipal"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'configDeployer')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deploymentScripts",
+      "apiVersion": "2020-10-01",
+      "name": "postDeploymentScript",
+      "kind": "AzurePowerShell",
+      "location": "[variables('location')]",
+      "properties": {
+        "azPowerShellVersion": "3.0",
+        "arguments": "[format('-resource_group {0} -storage_account_name {1} -filename_suffix {2}', variables('resourceGroupName'), format('{0}{1}adls', variables('prefix'), variables('randomString')), parameters('uniqueFileNameSuffix'))]",
+        "primaryScriptUri": "https://raw.githubusercontent.com/tayganr/purviewdq/main/script/postDeploymentScript.ps1",
+        "forceUpdateTag": "[guid(resourceGroup().id)]",
+        "retentionInterval": "PT4H"
+      },
+      "identity": {
+        "type": "UserAssigned",
+        "userAssignedIdentities": {
+          "[format('{0}', resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'configDeployer'))]": {}
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', format('{0}{1}adls', variables('prefix'), variables('randomString')))]",
+        "[resourceId('Microsoft.Authorization/roleAssignments', guid(format('02{0}', variables('resourceGroupName'))))]",
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'configDeployer')]"
+      ]
+    }
+  ]
+}
