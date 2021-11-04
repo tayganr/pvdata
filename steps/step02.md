@@ -19,7 +19,7 @@
 
     ![](/images/0007.png)
 
-5. Select the appropriate **Azure subscription** and **Storage account** (e.g. `pvdq{randomId}adls`), then click **Register**.
+5. Select the appropriate **Azure subscription** and **Storage account** (e.g. `pv{randomId}adls`), then click **Register**.
 
     ![](/images/0008.png)
 
