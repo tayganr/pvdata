@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.1008.15138",
-      "templateHash": "1998369287014102339"
+      "templateHash": "13714371301011295751"
     }
   },
   "parameters": {
@@ -100,7 +100,7 @@
       "properties": {
         "azPowerShellVersion": "3.0",
         "arguments": "[format('-resource_group {0} -storage_account_name {1} -filename_suffix {2}', variables('resourceGroupName'), format('{0}{1}adls', variables('prefix'), variables('randomString')), parameters('uniqueFileNameSuffix'))]",
-        "primaryScriptUri": "https://raw.githubusercontent.com/tayganr/pvdata/main/template/json/azuredeploy.json",
+        "primaryScriptUri": "https://raw.githubusercontent.com/tayganr/pvdata/main/script/postDeploymentScript.ps1",
         "forceUpdateTag": "[guid(resourceGroup().id)]",
         "retentionInterval": "PT4H"
       },

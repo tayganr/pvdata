@@ -79,7 +79,7 @@ resource script 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   properties: {
     azPowerShellVersion: '3.0'
     arguments: '-resource_group ${resourceGroupName} -storage_account_name ${adls.name} -filename_suffix ${uniqueFileNameSuffix}'
-    primaryScriptUri: 'https://raw.githubusercontent.com/tayganr/pvdata/main/template/json/azuredeploy.json'
+    primaryScriptUri: 'https://raw.githubusercontent.com/tayganr/pvdata/main/script/postDeploymentScript.ps1'
     forceUpdateTag: guid(resourceGroup().id)
     retentionInterval: 'PT4H'
   }
