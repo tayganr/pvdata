@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.1008.15138",
-      "templateHash": "16171417214444324993"
+      "templateHash": "1998369287014102339"
     }
   },
   "parameters": {
@@ -23,7 +23,7 @@
   "variables": {
     "resourceGroupName": "[resourceGroup().name]",
     "location": "[resourceGroup().location]",
-    "prefix": "pvdq",
+    "prefix": "pv",
     "randomString": "[substring(guid(resourceGroup().id), 0, 6)]",
     "roleDefinitionprefix": "[format('/subscriptions/{0}/providers/Microsoft.Authorization/roleDefinitions', subscription().subscriptionId)]",
     "role": {
@@ -100,7 +100,7 @@
       "properties": {
         "azPowerShellVersion": "3.0",
         "arguments": "[format('-resource_group {0} -storage_account_name {1} -filename_suffix {2}', variables('resourceGroupName'), format('{0}{1}adls', variables('prefix'), variables('randomString')), parameters('uniqueFileNameSuffix'))]",
-        "primaryScriptUri": "https://raw.githubusercontent.com/tayganr/purviewdq/main/script/postDeploymentScript.ps1",
+        "primaryScriptUri": "https://raw.githubusercontent.com/tayganr/pvdata/main/template/json/azuredeploy.json",
         "forceUpdateTag": "[guid(resourceGroup().id)]",
         "retentionInterval": "PT4H"
       },

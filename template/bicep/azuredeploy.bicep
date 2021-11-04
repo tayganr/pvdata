@@ -5,7 +5,7 @@ param uniqueFileNameSuffix string
 // Variables
 var resourceGroupName = resourceGroup().name
 var location = resourceGroup().location
-var prefix = 'pvdq'
+var prefix = 'pv'
 var randomString = substring(guid(resourceGroup().id),0,6)
 var roleDefinitionprefix = '/subscriptions/${subscription().subscriptionId}/providers/Microsoft.Authorization/roleDefinitions'
 var role = {
