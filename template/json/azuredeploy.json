@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.1008.15138",
-      "templateHash": "13714371301011295751"
+      "templateHash": "12515483040951030149"
     }
   },
   "parameters": {
@@ -15,7 +15,7 @@
     "purviewResourceGroup": {
       "type": "string"
     },
-    "uniqueFileNameSuffix": {
+    "uniqueFileNamePrefix": {
       "type": "string"
     }
   },
@@ -99,7 +99,7 @@
       "location": "[variables('location')]",
       "properties": {
         "azPowerShellVersion": "3.0",
-        "arguments": "[format('-resource_group {0} -storage_account_name {1} -filename_suffix {2}', variables('resourceGroupName'), format('{0}{1}adls', variables('prefix'), variables('randomString')), parameters('uniqueFileNameSuffix'))]",
+        "arguments": "[format('-resource_group {0} -storage_account_name {1} -filename_prefix {2}', variables('resourceGroupName'), format('{0}{1}adls', variables('prefix'), variables('randomString')), parameters('uniqueFileNamePrefix'))]",
         "primaryScriptUri": "https://raw.githubusercontent.com/tayganr/pvdata/main/script/postDeploymentScript.ps1",
         "forceUpdateTag": "[guid(resourceGroup().id)]",
         "retentionInterval": "PT4H"
