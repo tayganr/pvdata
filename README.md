@@ -1,10 +1,10 @@
 # :rocket: Starter Kit
 
 This starter kit will:
-* Provision an Azure Data Lake Storage Gen2 Account
-* Create a Container (e.g. `data`)
-* Upload sample data.
-* Provide your existing Azure Purview account read access to ADLS (i.e. `Storage Blob Data Reader`).
+* Provision an **Azure Data Lake Storage Gen2 Account**.
+* Create a **container** (e.g. `data`).
+* Upload sample **data** with filenames that contain your unique **prefix** (e.g. `youremail@domain.com`).
+* Provide your existing Azure Purview account **read access** to ADLS (i.e. `Storage Blob Data Reader`).
 
 ## :thinking: Prerequisites
 
