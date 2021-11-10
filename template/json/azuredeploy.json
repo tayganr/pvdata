@@ -5,17 +5,12 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.1008.15138",
-      "templateHash": "12625589285407043978"
+      "templateHash": "12515483040951030149"
     }
   },
   "parameters": {
     "purviewAccountName": {
-      "type": "string",
-      "allowedValues": [
-        "pvdemofm2ie-pv",
-        "account02",
-        "account03"
-      ]
+      "type": "string"
     },
     "purviewResourceGroup": {
       "type": "string"
