@@ -11,6 +11,7 @@
                     "elements": [
                         {
                             "name": "storageSelector",
+                            "type": "Microsoft.Solutions.ResourceSelector",
                             "label": "Select storage account",
                             "resourceType": "Microsoft.Storage/storageAccounts"
                         }
