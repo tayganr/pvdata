@@ -1,3 +1,8 @@
+@allowed([
+  'pvdemofm2ie-pv'
+  'account02'
+  'account03'
+])
 param purviewAccountName string
 param purviewResourceGroup string
 param uniqueFileNamePrefix string
