@@ -7,7 +7,7 @@
     [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ftayganr%2Fpvdata%2Fmain%2Ftemplate%2Fjson%2Fazuredeploy.json)
 
     Another
-    [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#blade/Microsoft_Azure_CreateUIDef/CustomDeploymentBlade/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ftayganr%2Fpvdata%2Fmain%2Ftemplate%2Fjson%2Fazuredeploy.json/uiFormDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Ftayganr%2Fpvdata%2Fmain%2Ftemplate%2Fjson%2Fportal.json)
+    [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#blade/Microsoft_Azure_CreateUIDef/CustomDeploymentBlade/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ftayganr%2Fpvdata%2Fmain%2Ftemplate%2Fjson%2Fazuredeploy.json/uiFormDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Ftayganr%2Fpvdata%2Fmain%2Ftemplate%2Fjson%2Fportal2.json)
 
 2. Select an `Azure Subscription`, a `Resource Group`, a `Region`, and click **Review + create**.
 
