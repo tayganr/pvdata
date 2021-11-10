@@ -1,0 +1,27 @@
+{
+    "$schema": "<relative path to createFormUI.schema.json>",
+    "view": {
+        "kind": "Form",
+        "properties": {
+            "title": "Taygan Bicep Custom UI Demo",
+            "steps": [
+                {
+                    "name": "basic",
+                    "label": "Basic Information",
+                    "elements": [
+                        {
+                            "name": "storageSelector",
+                            "label": "Select storage account",
+                            "resourceType": "Microsoft.Storage/storageAccounts"
+                        }
+                    ]
+                }
+            ]
+        },
+        "outputs": {
+            "parameters": {
+                "storageSelector": "[steps('basic').storageSelector]"
+            }
+        }
+    }
+}
